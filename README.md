@@ -41,7 +41,7 @@ Modules will mostly be used from the command line, but can also be loaded by dir
 - cURL
 - v8js (recommended for Cloudflare bypass)
 
-For Windows you can follow a simple guide here: https://github.com/yanikore/phpBrute/INSTALL-ENV.Windows.md
+For Windows you can follow a simple guide here: [INSTALL-ENV.Windows.md](INSTALL-ENV.Windows.md)
 Right now there's no easy way to get the required installation for Linux or Mac. You'll have to compile most of it yourself.
 
 ### Base modules
