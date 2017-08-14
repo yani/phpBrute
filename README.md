@@ -5,7 +5,7 @@ phpBrute is a threaded web-automation tool. It's main purpose is either pentesti
 Modules will mostly be used from the command line, but can also be loaded by directly loading phpBrute's ModuleFactory.
 
 ```
-   phpBrute v0.3
+   phpBrute v0.4
    
       https://github.com/yanikore/phpBrute
 
@@ -46,18 +46,18 @@ Right now there's no easy way to get the required installation for Linux or Mac.
 
 ### Base modules
 
-> **DeathByCaptcha**
-> Takes a captcha file and solves it using the DeathByCaptcha service.
+* **DeathByCaptcha**
+    Takes a captcha file and solves it using the DeathByCaptcha service.
 
-> **ProxyChecker**
-> A proxy checker that can differentiate between proxy types.
+* **ProxyChecker**
+    A proxy checker that can differentiate between proxy types.
 
-> **ProxyScraper**
-> Scrapes a list of URLs for proxies.
-> Example source list: https://pastebin.com/raw/uPik26B7
+* **ProxyScraper**
+    Scrapes a list of URLs for proxies.
+    Example source list: https://pastebin.com/raw/uPik26B7
 
-> **WebSocketExample**
-> An example of a websocket connection.
+* **WebSocketExample**
+    An example of a websocket connection.
 
 ### Examples
 ```
