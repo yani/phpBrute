@@ -67,6 +67,7 @@ Add the location of your PHP folder and save changes. You can now open up CMD an
 php -v
 ```
 
+### Usage
 To start you can run the following command from inside the phpBrute folder:
 ```
 php phpBrute.php
