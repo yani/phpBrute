@@ -6,9 +6,11 @@ Modules will mostly be used from the command line, but can also be loaded by dir
 
 ```
    phpBrute v0.3
+   
       https://github.com/yanikore/phpBrute
 
    Usage:
+   
      -m <name>             the module to be loaded
      -i <path>             a list of input entries
      -x <amount>           the amount of empty input entries
@@ -28,6 +30,7 @@ Modules will mostly be used from the command line, but can also be loaded by dir
      -debug                enable debugging of core features and modules
 
    Module settings:
+   
      --<variable>=<value>  module specific variable
      --<flag>              module specific flag
 ``` 
