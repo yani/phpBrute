@@ -38,7 +38,6 @@ class ProxyChecker extends \phpBrute\Module
         foreach ($urls as $url) {
             try {
                 curl_setopt($this->curl, CURLOPT_URL, $url);
-
                 if ($output = curl_exec($this->curl)) {
                     $ip = trim($output);
                     if (filter_var($ip, FILTER_VALIDATE_IP) && !in_array($ip, $run_once_data)) {
@@ -46,7 +45,6 @@ class ProxyChecker extends \phpBrute\Module
                     }
                 }
             } catch (\Exception $ex) {
-                // nothing
             }
         }
 

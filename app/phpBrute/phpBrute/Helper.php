@@ -25,7 +25,12 @@ class Helper
         try {
             if ($curl_handle = curl_init()) {
                 curl_setopt_array($curl_handle, [
-                    CURLOPT_HEADER => true,
+                    CURLOPT_HTTPHEADER => [
+                        'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+                        'Accept-Charset' => 'utf-8',
+                        'Accept-Language' => 'en-US,en;q=0.8'
+                    ],
+                    CURLOPT_ENCODING => '',
                     CURLOPT_COOKIEJAR => false,
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_FOLLOWLOCATION => 1,

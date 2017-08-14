@@ -4,7 +4,7 @@
  */
 
 // Constants
-define('PHPBRUTE_VERSION', 0.3);
+define('PHPBRUTE_VERSION', 0.4);
 define('PHPBRUTE_MAX_THREADS', 1000);
 define('PHPBRUTE_MODULE_DIR', __DIR__ . '/modules');
 define('PHPBRUTE_COLOR', true);
@@ -90,7 +90,7 @@ if ($arg->count === 0 || $arg->get('help')) {
     echo "     -r <string>           a string of proxies to use, seperated by a comma" . PHP_EOL;
     echo "     -k <path>             a list of socks5 proxies to use" . PHP_EOL;
     echo "     -u <path>             a list of useragents to use" . PHP_EOL . PHP_EOL;
-    echo "     -d <string>           a delimiter for outputting module data (default: ,)" . PHP_EOL . PHP_EOL;
+    echo "     -d <string>           a delimiter for outputting module data (default: \\n)" . PHP_EOL . PHP_EOL;
     echo "     -h, -help             show this help dialog" . PHP_EOL;
     echo "     -debug                enable debugging of core features and modules" . PHP_EOL . PHP_EOL;
     echo "   Module settings:" . PHP_EOL . PHP_EOL;
@@ -109,7 +109,7 @@ $useragents[0] = false;
 $output_handle = false;
 $output_partial_handle = false;
 $threadcount = 1;
-$data_delimiter = ',';
+$data_delimiter = PHP_EOL;
 $input_format = '<identifier>';
 
 // Get module info
@@ -127,21 +127,7 @@ try {
     $module_factory = new \phpBrute\ModuleFactory($module_path);
     $module = $module_factory->produce();
     $module_info = $module->info;
-
     \phpBrute\CLI::print("module loaded: {$module_name}");
-    if (method_exists($module, 'runOnce')) {
-        \phpBrute\CLI::debug("running module 'run once' function");
-        if (!$run_once_data = $module->runOnce($arg->settings)) {
-            \phpBrute\CLI::exit(-1, "{$module_name}: runOnce failed");
-        } else {
-            if (!is_array($run_once_data)) {
-                $run_once_data = ['success' => true];
-            }
-        }
-    } else {
-        \phpBrute\CLI::debug("module does not have a 'run once' function");
-    }
-    unset($module);
 } catch (\Exception $ex) {
     \phpBrute\CLI::exit(-1, "{$module_name}: " . $ex->getMessage());
 }
@@ -185,6 +171,21 @@ if ($arg->count == 1) {
         \phpBrute\CLI::exit(0, "no info found for '{$module_name}' module");
     }
 }
+
+// Run module runOnce
+if (method_exists($module, 'runOnce')) {
+    \phpBrute\CLI::debug("running module 'run once' function");
+    if (!$run_once_data = $module->runOnce($arg->settings)) {
+        \phpBrute\CLI::exit(-1, "{$module_name}: runOnce failed");
+    } else {
+        if (!is_array($run_once_data)) {
+            $run_once_data = ['success' => true];
+        }
+    }
+} else {
+    \phpBrute\CLI::debug("module does not have a 'run once' function");
+}
+unset($module);
 
 // Custom input format
 if ($input_format_arg = $arg->get('input_format')) {
