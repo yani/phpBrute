@@ -47,17 +47,17 @@ Right now there's no easy way to get the required installation for Linux or Mac.
 ### Base modules
 
 * **DeathByCaptcha**
-    Takes a captcha file and solves it using the DeathByCaptcha service.
+	+ Takes a captcha file and solves it using the DeathByCaptcha service.
 
 * **ProxyChecker**
-    A proxy checker that can differentiate between proxy types.
+	+ A proxy checker that can differentiate between proxy types.
 
 * **ProxyScraper**
-    Scrapes a list of URLs for proxies.
-    Example source list: https://pastebin.com/raw/uPik26B7
+	+ Scrapes a list of URLs for proxies.
+	+ Example source list: https://pastebin.com/raw/uPik26B7
 
 * **WebSocketExample**
-    An example of a websocket connection.
+    + An example of a websocket connection.
 
 ### Examples
 ```
