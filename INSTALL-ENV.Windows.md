@@ -9,9 +9,9 @@ You can use these steps to setup a full environment for phpBrute usage.
 - v8js (recommended for Cloudflare bypass)
 
 ### Install
-You can use the PHP 7.0 builds by Jan-e located here: https://www.apachelounge.com/viewtopic.php?t=6359
+You can use the PHP 7.0 builds by Jan-e located at https://www.apachelounge.com/viewtopic.php?t=6359
 Make sure to grab one **without "nts"**. (nts stands for Not Thread Safe, we don't need that)
-Choose 64bit if possible. It should improve threading.
+Choose 64bit if possible as it should improve threading.
 Ex: *php-7.0.22-Win32-VC14-x64.zip*
 
 Extract the contents of the archive to a directory like C:\php
@@ -23,15 +23,17 @@ Make sure the following files are present:
 - v8.dll
 
 ### Configuration
-Copy and/or rename **php.ini-development** to **php.ini**
-Open it up in a text editor. Search for the following line. Make sure it says "ext" and is uncommented by removing the ";":
+Copy and/or rename **php.ini-development** to **php.ini**.
+Open it up in a text editor and search for the following:
 ```
-;extension_dir = "ext"
+extension_dir
 ```
+
+Make sure it is set "ext" and is uncommented by removing the ";"
 
 Now search for:
 ```
-extension=
+extension
 ```
 
 Most of the extensions will be commented out and some will be missing
@@ -60,10 +62,17 @@ An easy way is to run the following command (Start->Run):
 ```
 %windir%\System32\rundll32.exe sysdm.cpl,EditEnvironmentVariables
 ```
-Add the location of your php folder and you should be able to run the following command to verify:
+Add the location of your PHP folder and save changes. You can now open up CMD and run the following command to verify it's been added:
 ```
 php -v
 ```
+
+To start you can run the following command from inside the phpBrute folder:
+```
+php phpBrute.php
+```
+
+An easy way to get a CMD prompt at the correct path is to open the phpBrute folder in explorer, Shift + Rightclick in the window and choose "Open Command Prompt here".
 
 ### Notes
 PHP needs the VS2015 redistributable (VC14):
