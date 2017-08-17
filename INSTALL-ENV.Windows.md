@@ -26,14 +26,14 @@ Make sure the following files are present:
 Copy and/or rename **php.ini-development** to **php.ini**.
 Open it up in a text editor and search for the following:
 ```
-extension_dir
+extension_dir=
 ```
 
-Make sure it is set "ext" and is uncommented by removing the ";"
+Make sure it is set to "ext" and is uncommented by removing the ";"
 
 Now search for:
 ```
-extension
+extension=
 ```
 
 Most of the extensions will be commented out and some will be missing
@@ -73,7 +73,7 @@ To start you can run the following command from inside the phpBrute folder:
 php phpBrute.php
 ```
 
-An easy way to get a CMD prompt at the correct path is to open the phpBrute folder in explorer, Shift + Rightclick in the window and choose "Open Command Prompt here".
+An easy way to get a CMD prompt at the correct path is to open the phpBrute folder, Shift + Rightclick in the window and choose "Open Command Prompt here".
 
 ### Notes
 PHP needs the VS2015 redistributable (VC14):
