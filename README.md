@@ -2,10 +2,10 @@
 
 phpBrute is a threaded web-automation tool. It's main purpose is either pentesting or threaded automation. It's modular and allows anybody with simple PHP cURL coding knowledge to create modules.
 
-Modules will mostly be used from the command line, but can also be loaded by directly loading phpBrute's ModuleFactory.
+Modules will mostly be used from the command line, but can also be loaded directly using phpBrute's ModuleFactory.
 
 ```
-   phpBrute v0.4
+   phpBrute v0.5
    
       https://github.com/yanikore/phpBrute
 
@@ -25,7 +25,8 @@ Modules will mostly be used from the command line, but can also be loaded by dir
      -u <path>             a list of useragents to use
 
      -d <string>           a delimiter for outputting module data (default: ,)
-
+     -z                    check and remove duplicate entries (slower)
+	 
      -h, -help             show this help dialog
      -debug                enable debugging of core features and modules
 

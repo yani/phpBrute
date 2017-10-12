@@ -49,7 +49,7 @@ class Threaded extends \Threaded
         } catch (\Exception $ex) {
             $msg = $ex->getMessage();
             if (defined('PHPBRUTE_DEBUG')) {
-                CLI::print(CLI::color("EXCEPTION", "black", "red") . " {$return_cli}\n          {$msg}", false);
+                CLI::print(CLI::color("EXCEPTION", "black", "red") . " {$return_cli}\n           {$msg}", false);
             } else {
                 CLI::print(CLI::color("EXCEPTION", "black", "red") . " {$return_cli}", false);
             }

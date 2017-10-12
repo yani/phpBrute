@@ -2,6 +2,7 @@
 namespace phpBrute\Module;
 
 use \phpBrute\Helper;
+use \phpBrute\CurlHandle;
 
 class ProxyChecker extends \phpBrute\Module
 {
@@ -21,7 +22,13 @@ class ProxyChecker extends \phpBrute\Module
     public function runOnce(array $settings = [])
     {
         $run_once_data = [];
-        $urls = [
+
+        if (!$this->curl = new CurlHandle()) {
+            throw new \Exception('failed to initialize cURL');
+        }
+
+        // Grab our own IPs so we can check if proxies leak them
+        foreach ([
             'http://v4.ipv6-test.com/api/myip.php',
             'http://v6.ipv6-test.com/api/myip.php',
             'http://v4v6.ipv6-test.com/api/myip.php',
@@ -29,16 +36,10 @@ class ProxyChecker extends \phpBrute\Module
             /*'http://bot.whatismyipaddress.com/',
             'http://ipv4bot.whatismyipaddress.com',
             'http://ipv6bot.whatismyipaddress.com'*/
-        ];
-
-        if (!$this->curl = Helper::loadcURL()) {
-            throw new \Exception('failed to load cURL');
-        }
-
-        foreach ($urls as $url) {
+        ] as $url) {
             try {
-                curl_setopt($this->curl, CURLOPT_URL, $url);
-                if ($output = curl_exec($this->curl)) {
+                $this->curl->setOpt('CURLOPT_URL', $url);
+                if ($output = $this->curl->exec()) {
                     $ip = trim($output);
                     if (filter_var($ip, FILTER_VALIDATE_IP) && !in_array($ip, $run_once_data)) {
                         $run_once_data[] = $ip;
@@ -47,8 +48,6 @@ class ProxyChecker extends \phpBrute\Module
             } catch (\Exception $ex) {
             }
         }
-
-        @curl_close($this->curl);
 
         if (empty($run_once_data)) {
             throw new \Exception('failed to grab local IP');
@@ -59,30 +58,30 @@ class ProxyChecker extends \phpBrute\Module
 
     public function run($data, $proxy, $useragent, array $settings = [], array $run_once_data = [])
     {
-        if ($this->curl = Helper::loadcURL($data['proxy'], $useragent)) {
+        if ($this->curl = new CurlHandle($proxy, $useragent)) {
             if (!empty($settings['judge-url']) && filter_var($data['judge-url'], FILTER_VALIDATE_URL) !== false) {
-                curl_setopt($this->curl, CURLOPT_URL, $settings['judge-url']);
+                $this->curl->setOpt('CURLOPT_URL', $settings['judge-url']);
             } else {
-                curl_setopt($this->curl, CURLOPT_URL, 'http://proxyjudge.us/azenv.php');
+                $this->curl->setOpt('CURLOPT_URL', 'http://proxyjudge.us/azenv.php');
             }
 
             if (!empty($settings['time-out'])) {
-                curl_setopt_array($this->curl, [
-                    CURLOPT_CONNECTTIMEOUT  => (int)$settings['time-out'],
-                    CURLOPT_TIMEOUT => (int)$settings['time-out']
+                $this->curl->setOpts([
+                    'CURLOPT_CONNECTTIMEOUT'  => (int)$settings['time-out'],
+                    'CURLOPT_TIMEOUT' => (int)$settings['time-out']
                 ]);
             } else {
-                curl_setopt_array($this->curl, [
-                    CURLOPT_CONNECTTIMEOUT  => 20,
-                    CURLOPT_TIMEOUT => 20
+                $this->curl->setOpts([
+                    'CURLOPT_CONNECTTIMEOUT'  => 20,
+                    'CURLOPT_TIMEOUT' => 20
                 ]);
             }
 
-            if (!$output = curl_exec($this->curl)) {
+            if (!$output = $this->curl->exec()) {
                 return $this->return(self::INVALID);
             }
 
-            if (curl_getinfo($this->curl, CURLINFO_HTTP_CODE) == 200) {
+            if ($this->curl->return_code == 200) {
                 if (empty($settings['proxy-type'])) {
                     return $this->return(self::SUCCESS);
                 }

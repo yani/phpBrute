@@ -14,20 +14,21 @@ class Arguments
 
     public $settings = [];
 
-    public function __construct(array $argument_list)
+    public function __construct(array $argv, array $argument_list)
     {
         $this->argument_list = $argument_list;
-    }
-
-    public function load(array $argv)
-    {
         $this->script_name = array_shift($argv);
         $this->_getArguments($argv);
         $this->count = count($this->arguments);
+        return $this;
     }
 
     public function get(string $argument)
     {
+        if (!empty($this->arguments[$argument]) && count($this->arguments[$argument]) === 1 && !empty($this->arguments[$argument][0])) {
+            return $this->arguments[$argument][0];
+        }
+
         return isset($this->arguments[$argument]) ? $this->arguments[$argument] : null;
     }
 

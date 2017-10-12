@@ -17,15 +17,14 @@ class ProxyScraper extends \phpBrute\Module
         ]
     ];
 
-    public function getIPv4($string)
+    public function getIPv4(string $string): array
     {
-        $ip_port = [];
         if (preg_match_all('~(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):(?:6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[1-9][0-9]{1,3}|[0-9])~', $string, $matches)) {
             if (!empty($matches[0]) && is_array($matches[0])) {
-                $ip_port = $matches[0];
+                return $matches[0];
             }
         }
-        return $ip_port;
+        return [];
     }
 
     public function run($data, $proxy, $useragent, array $settings = [], array $run_once_data = [])
@@ -34,18 +33,18 @@ class ProxyScraper extends \phpBrute\Module
             return $this->return(self::INVALID);
         }
 
-        if ($this->curl = Helper::loadcURL($proxy, $useragent)) {
-            curl_setopt($this->curl, CURLOPT_URL, $data['url']);
+        if ($this->curl = new CurlHandle($proxy, $useragent)) {
+            $this->curl->setOpts('CURLOPT_URL', $data['url']);
 
             if (!empty($settings['time-out'])) {
-                curl_setopt_array($this->curl, [
-                    CURLOPT_CONNECTTIMEOUT  => (int)$settings['time-out'],
-                    CURLOPT_TIMEOUT => (int)$settings['time-out']
+                $this->curl->setOpts([
+                    'CURLOPT_CONNECTTIMEOUT'  => (int)$settings['time-out'],
+                    'CURLOPT_TIMEOUT' => (int)$settings['time-out']
                 ]);
             } else {
-                curl_setopt_array($this->curl, [
-                    CURLOPT_CONNECTTIMEOUT  => 20,
-                    CURLOPT_TIMEOUT => 20
+                $this->curl->setOpts([
+                    'CURLOPT_CONNECTTIMEOUT'  => 20,
+                    'CURLOPT_TIMEOUT' => 20
                 ]);
             }
 

@@ -28,7 +28,7 @@ class Module
     public function return(int $return, array $return_data = [], string $cli_line = '')
     {
         if ($this->curl) {
-            @curl_close($this->curl);
+            $this->curl->close();
         }
         return [$return, $return_data, $cli_line];
     }
