@@ -10,7 +10,7 @@
 namespace phpBrute;
 
 // Constants
-define('PHPBRUTE_VERSION', 0.5);
+define('PHPBRUTE_VERSION', 0.5.1);
 define('PHPBRUTE_MODULE_DIR', __DIR__ . '/modules');
 define('PHPBRUTE_COLOR', true);
 

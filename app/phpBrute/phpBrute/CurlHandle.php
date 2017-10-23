@@ -260,8 +260,8 @@ class CurlHandle
 
     public function close()
     {
-        if ($this->curl) {
-            @curl_close($this->curl);
+        if ($this->handle) {
+            @curl_close($this->handle);
         }
     }
 }
