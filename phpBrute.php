@@ -10,7 +10,7 @@
 namespace phpBrute;
 
 // Constants
-define('PHPBRUTE_VERSION', 0.5.1);
+define('PHPBRUTE_VERSION', '0.5.2');
 define('PHPBRUTE_MODULE_DIR', __DIR__ . '/modules');
 define('PHPBRUTE_COLOR', true);
 
@@ -80,7 +80,7 @@ if ($arg->get('debug')) {
 
 // Show help (no args or only -h or -help)
 if ($arg->count === 0 || $arg->get('help')) {
-    echo PHP_EOL . "   phpBrute v" . (string)PHPBRUTE_VERSION;
+    echo PHP_EOL . "   phpBrute v" . PHPBRUTE_VERSION;
     echo PHP_EOL;
     echo PHP_EOL . "      https://github.com/yanikore/phpBrute";
     echo PHP_EOL;
@@ -114,7 +114,7 @@ if ($arg->count === 0 || $arg->get('help')) {
 }
 
 // Show startup
-CLI::print('phpBrute v' . (string)PHPBRUTE_VERSION);
+CLI::print('phpBrute v' . PHPBRUTE_VERSION);
 
 // Variables
 $inputs = [];

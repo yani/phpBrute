@@ -5,7 +5,7 @@ phpBrute is a threaded web-automation tool. It's main purpose is either pentesti
 Modules will mostly be used from the command line, but can also be loaded directly using phpBrute's ModuleFactory.
 
 ```
-   phpBrute v0.5
+   phpBrute v0.5.2
    
       https://github.com/yanikore/phpBrute
 
