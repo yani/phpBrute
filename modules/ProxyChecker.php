@@ -58,7 +58,7 @@ class ProxyChecker extends \phpBrute\Module
 
     public function run($data, $proxy, $useragent, array $settings = [], array $run_once_data = [])
     {
-        if ($this->curl = new CurlHandle($proxy, $useragent)) {
+        if ($this->curl = new CurlHandle($data['proxy'], $useragent)) {
             if (!empty($settings['judge-url']) && filter_var($data['judge-url'], FILTER_VALIDATE_URL) !== false) {
                 $this->curl->setOpt('CURLOPT_URL', $settings['judge-url']);
             } else {
